@@ -1,0 +1,101 @@
+{
+  "miniprogramRoot": "./",
+  "cloudfunctionRoot": "cloud/functions/",
+  "appid": "wxd7d3274829358f3f",
+  "projectname": "轮椅出行助手-上海无障碍景区导游",
+  "description": "为轮椅使用者打造的上海无障碍景区导游小程序",
+  "compileType": "miniprogram",
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "plugin": {
+      "current": -1,
+      "list": []
+    },
+    "gamePlugin": {
+      "current": -1,
+      "list": []
+    },
+    "miniprogram": {
+      "current": -1,
+      "list": []
+    }
+  },
+  "libVersion": "3.0.0",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  },
+  "uploadAppPackage": true,
+  "babelSetting": {
+    "ignore": [],
+    "disablePlugins": [],
+    "outputPath": ""
+  },
+  "permission": {},
+  "plugins": {},
+  "preloadRule": {},
+  "resolutionName": "1334x750",
+  "resolutionScale": 100,
+  "packNrwConfig": {},
+  "gameRecorderSetting": {},
+  "remotePath": "miniprogram/",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudios": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
+    "lazyloadPlaceLoadingTemplate": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "babelSameSuperHelperAsObject": true,
+    "ignoreUploadUnusedFiles": true,
+    "ignoreDevUntilsInWeexConsole": false,
+    "showES6CompileModule": false,
+    "esmodulesExclude": [
+      "hammer.js"
+    ],
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
+    "packNrwConfig": "{}",
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "ignoreELEmptyTextNodes": false,
+    "ignoreUploadUnusedFiles": true
+  },
+  "cloudbaseConfig": {
+    "envId": "",
+    "region": "ap-shanghai"
+  }
+}
