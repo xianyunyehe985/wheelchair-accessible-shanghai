@@ -1,0 +1,88 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/map/map",
+    "pages/route-planning/route-planning",
+    "pages/scenic-guide/scenic-guide",
+    "pages/community/community",
+    "pages/user-center/user-center",
+    "pages/facility-detail/facility-detail",
+    "pages/route-detail/route-detail",
+    "pages/scenic-detail/scenic-detail",
+    "pages/post-detail/post-detail",
+    "pages/create-post/create-post",
+    "pages/settings/settings"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#f0f0f0",
+    "navigationBarTitleText": "轮椅出行助手",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#07C160",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/map/map",
+        "text": "地图",
+        "iconPath": "images/icons/map-unselected.png",
+        "selectedIconPath": "images/icons/map-selected.png"
+      },
+      {
+        "pagePath": "pages/route-planning/route-planning",
+        "text": "路线规划",
+        "iconPath": "images/icons/route-unselected.png",
+        "selectedIconPath": "images/icons/route-selected.png"
+      },
+      {
+        "pagePath": "pages/scenic-guide/scenic-guide",
+        "text": "景区导览",
+        "iconPath": "images/icons/scenic-unselected.png",
+        "selectedIconPath": "images/icons/scenic-selected.png"
+      },
+      {
+        "pagePath": "pages/community/community",
+        "text": "部落",
+        "iconPath": "images/icons/community-unselected.png",
+        "selectedIconPath": "images/icons/community-selected.png"
+      },
+      {
+        "pagePath": "pages/user-center/user-center",
+        "text": "我的",
+        "iconPath": "images/icons/user-unselected.png",
+        "selectedIconPath": "images/icons/user-selected.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取您的位置，用于显示附近景区和规划路线"
+    },
+    "scope.writePhotosToPhotosAlbum": {
+      "desc": "保存图片到相册"
+    },
+    "scope.record": {
+      "desc": "用于录音反馈"
+    }
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000,
+    "uploadFile": 10000,
+    "downloadFile": 10000
+  },
+  "debug": false,
+  "functionalPages": true,
+  "requiredBackgroundModes": [
+    "location"
+  ],
+  "requiredPrivateInfos": [
+    "getLocation",
+    "chooseLocation",
+    "chooseAddress"
+  ]
+}
