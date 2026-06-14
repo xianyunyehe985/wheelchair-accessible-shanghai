@@ -1,0 +1,115 @@
+<!--user-center/user-center.wxml - 个人中心模块-->
+<view class="user-center-container">
+  <scroll-view scroll-y="true" class="content">
+    <!-- 用户信息卡片 -->
+    <view class="user-info-card card">
+      <view class="user-header">
+        <image src="{{userInfo.avatarUrl}}" class="user-avatar"></image>
+        <view class="user-details">
+          <text class="user-name">{{userInfo.nickName}}</text>
+          <text class="user-id">ID: {{userInfo.id}}</text>
+        </view>
+        <button class="edit-btn" bindtap="onEditProfile">
+          <image src="/images/icons/edit.png"></image>
+        </button>
+      </view>
+      <view class="user-stats">
+        <view class="stat">
+          <text class="stat-value">{{stats.totalDistance}}</text>
+          <text class="stat-label">总里程</text>
+        </view>
+        <view class="stat">
+          <text class="stat-value">{{stats.visitedScenics}}</text>
+          <text class="stat-label">景区数</text>
+        </view>
+        <view class="stat">
+          <text class="stat-value">{{stats.favoriteCount}}</text>
+          <text class="stat-label">收藏数</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 无障碍偏好设置 -->
+    <view class="section">
+      <text class="section-title">无障碍偏好</text>
+      <view class="setting-item" bindtap="onEditPreferences">
+        <view class="setting-label">
+          <text class="label-text">轮椅类型</text>
+          <text class="label-desc">{{userPreferences.wheelchairType}}</text>
+        </view>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+      <view class="setting-item" bindtap="onEditPreferences">
+        <view class="setting-label">
+          <text class="label-text">最大可接受坡度</text>
+          <text class="label-desc">{{userPreferences.maxSlope}}°</text>
+        </view>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+      <view class="setting-item" bindtap="onEditPreferences">
+        <view class="setting-label">
+          <text class="label-text">出行能力等级</text>
+          <text class="label-desc">{{userPreferences.mobilityLevel}}</text>
+        </view>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+    </view>
+
+    <!-- 紧急联系人 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">紧急联系人</text>
+        <button class="add-btn" bindtap="onAddEmergencyContact">+ 添加</button>
+      </view>
+      <view wx:for="{{emergencyContacts}}" wx:key="id" class="contact-item">
+        <view class="contact-info">
+          <text class="contact-name">{{item.name}}</text>
+          <text class="contact-relation">{{item.relationship}}</text>
+          <text class="contact-phone">{{item.phone}}</text>
+        </view>
+        <button class="remove-btn" bindtap="onRemoveContact" data-id="{{item.id}}">删除</button>
+      </view>
+    </view>
+
+    <!-- 我的收藏 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">我的收藏</text>
+        <button class="view-all-btn" bindtap="onViewAllFavorites">查看全部</button>
+      </view>
+      <view wx:for="{{favorites.slice(0, 3)}}" wx:key="id" class="favorite-item card card-hover" bindtap="onViewFavorite" data-id="{{item.id}}">
+        <text class="favorite-name">{{item.name}}</text>
+        <text class="favorite-type">{{item.type}}</text>
+      </view>
+    </view>
+
+    <!-- 我的历史 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">访问历史</text>
+        <button class="view-all-btn" bindtap="onViewAllHistory">查看全部</button>
+      </view>
+      <view wx:for="{{history.slice(0, 3)}}" wx:key="id" class="history-item" bindtap="onViewHistory" data-id="{{item.id}}">
+        <view class="history-date">{{item.date}}</view>
+        <text class="history-name">{{item.name}}</text>
+      </view>
+    </view>
+
+    <!-- 其他设置 -->
+    <view class="section">
+      <text class="section-title">其他</text>
+      <view class="setting-item" bindtap="onSettings">
+        <text class="label-text">设置</text>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+      <view class="setting-item" bindtap="onAbout">
+        <text class="label-text">关于我们</text>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+      <view class="setting-item" bindtap="onLogout">
+        <text class="label-text">退出登录</text>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+    </view>
+  </scroll-view>
+</view>

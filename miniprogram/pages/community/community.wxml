@@ -1,0 +1,90 @@
+<!--community/community.wxml - 交流部落模块-->
+<view class="community-container">
+  <!-- 标签页 -->
+  <view class="tabs">
+    <view wx:for="{{tabs}}" wx:key="id" class="tab-item {{activeTab === item.id ? 'active' : ''}}" bindtap="onTabChange" data-id="{{item.id}}">
+      <text>{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 内容区域 -->
+  <scroll-view scroll-y="true" class="content">
+    <view wx:if="{{activeTab === 'posts'}}">
+      <!-- 帖子列表 -->
+      <view wx:for="{{posts}}" wx:key="id" class="post-card card card-hover" bindtap="onViewPost" data-id="{{item.id}}">
+        <view class="post-header">
+          <image src="{{item.authorAvatar}}" class="author-avatar"></image>
+          <view class="post-meta">
+            <text class="author-name">{{item.authorName}}</text>
+            <text class="post-time">{{item.createTime}}</text>
+          </view>
+          <view class="post-category" wx:if="{{item.category}}">
+            <text class="category-badge">{{item.category}}</text>
+          </view>
+        </view>
+        <text class="post-title">{{item.title}}</text>
+        <text class="post-content">{{item.content}}</text>
+        <view class="post-images" wx:if="{{item.images && item.images.length > 0}}">
+          <image wx:for="{{item.images}}" wx:key="*this" src="{{item}}" mode="aspectFill"></image>
+        </view>
+        <view class="post-footer">
+          <view class="post-stats">
+            <text class="stat">👍 {{item.likes}}</text>
+            <text class="stat">💬 {{item.comments}}</text>
+          </view>
+          <view class="post-actions">
+            <button class="action-btn" bindtap="onLikePost" data-id="{{item.id}}">👍</button>
+            <button class="action-btn" bindtap="onCommentPost" data-id="{{item.id}}">💬</button>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{activeTab === 'questions'}}">
+      <!-- 问答列表 -->
+      <view wx:for="{{questions}}" wx:key="id" class="question-card card card-hover" bindtap="onViewQuestion" data-id="{{item.id}}">
+        <view class="question-header">
+          <text class="question-title">{{item.title}}</text>
+          <view class="question-status" wx:if="{{item.answered}}">
+            <text class="status-badge">已解答</text>
+          </view>
+        </view>
+        <text class="question-desc">{{item.description}}</text>
+        <view class="question-meta">
+          <text class="meta-item">提问者: {{item.askerName}}</text>
+          <text class="meta-item">回答: {{item.answerCount}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{activeTab === 'reports'}}">
+      <!-- 问题反馈列表 -->
+      <view wx:for="{{reports}}" wx:key="id" class="report-card card card-hover" bindtap="onViewReport" data-id="{{item.id}}">
+        <view class="report-header">
+          <text class="report-title">{{item.title}}</text>
+          <view class="report-severity" wx:if="{{item.severity}}">
+            <text class="severity-badge severity-{{item.severity}}">{{item.severityText}}</text>
+          </view>
+        </view>
+        <text class="report-desc">{{item.description}}</text>
+        <view class="report-images" wx:if="{{item.images && item.images.length > 0}}">
+          <image wx:for="{{item.images}}" wx:key="*this" src="{{item}}" mode="aspectFill"></image>
+        </view>
+        <view class="report-status">
+          <text class="status-badge">{{item.statusText}}</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 浮动发布按钮 -->
+  <button class="fab fab-primary" bindtap="onCreatePost">
+    <image src="/images/icons/plus.png"></image>
+  </button>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <view class="spinner"></view>
+    <text>加载中...</text>
+  </view>
+</view>

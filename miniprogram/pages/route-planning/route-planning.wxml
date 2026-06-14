@@ -1,0 +1,132 @@
+<!--route-planning/route-planning.wxml - 轮椅路线规划模块-->
+<view class="route-planning-container">
+  <!-- 自定义导航栏 -->
+  <view class="custom-nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav-content">
+      <text class="nav-title">路线规划</text>
+    </view>
+  </view>
+
+  <scroll-view scroll-y="true" class="content">
+    <!-- 起点设置 -->
+    <view class="section">
+      <text class="section-title">出发点</text>
+      <view class="location-input" bindtap="onSelectStartPoint">
+        <view class="input-label">{{startPoint.name || '选择出发地点'}}</view>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+    </view>
+
+    <!-- 终点设置 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">目的地</text>
+        <text class="add-btn" bindtap="onAddEndPoint">+ 添加</text>
+      </view>
+      <view wx:for="{{endPoints}}" wx:key="id" class="endpoint-item">
+        <view class="endpoint-info">
+          <text class="endpoint-index">{{index + 1}}</text>
+          <view class="endpoint-details">
+            <text class="endpoint-name">{{item.name}}</text>
+            <text class="endpoint-distance">距离: {{item.distance}}m</text>
+          </view>
+        </view>
+        <button class="remove-btn" bindtap="onRemoveEndPoint" data-index="{{index}}">删除</button>
+      </view>
+    </view>
+
+    <!-- 用户偏好设置 -->
+    <view class="section">
+      <text class="section-title">轮椅偏好设置</text>
+      <view class="preference-item">
+        <text class="preference-label">轮椅类型</text>
+        <picker bindchange="onWheelchairTypeChange" value="{{userPreferences.wheelchairTypeIndex}}" range="{{wheelchairTypes}}">
+          <view class="picker-select">{{wheelchairTypes[userPreferences.wheelchairTypeIndex]}}</view>
+        </picker>
+      </view>
+      <view class="preference-item">
+        <text class="preference-label">最大可接受坡度</text>
+        <view class="slope-control">
+          <button class="btn-minus" bindtap="onSlopeDecrease">-</button>
+          <text class="slope-value">{{userPreferences.maxSlope}}°</text>
+          <button class="btn-plus" bindtap="onSlopeIncrease">+</button>
+        </view>
+      </view>
+      <view class="preference-item">
+        <text class="preference-label">出行能力等级</text>
+        <picker bindchange="onMobilityLevelChange" value="{{userPreferences.mobilityLevelIndex}}" range="{{mobilityLevels}}">
+          <view class="picker-select">{{mobilityLevels[userPreferences.mobilityLevelIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 规划选项 -->
+    <view class="section">
+      <text class="section-title">规划选项</text>
+      <view class="option-item">
+        <view class="option-label">
+          <text class="label-text">避开陡坡</text>
+          <text class="label-desc">优先选择平缓的路线</text>
+        </view>
+        <switch checked="{{planOptions.avoidSteep}}" bindchange="onToggleOption" data-option="avoidSteep"></switch>
+      </view>
+      <view class="option-item">
+        <view class="option-label">
+          <text class="label-text">最短距离</text>
+          <text class="label-desc">优先选择距离最短的路线</text>
+        </view>
+        <switch checked="{{planOptions.shortestDistance}}" bindchange="onToggleOption" data-option="shortestDistance"></switch>
+      </view>
+      <view class="option-item">
+        <view class="option-label">
+          <text class="label-text">避开拥挤区域</text>
+          <text class="label-desc">根据用户反馈选择人流较少的路线</text>
+        </view>
+        <switch checked="{{planOptions.avoidCrowded}}" bindchange="onToggleOption" data-option="avoidCrowded"></switch>
+      </view>
+    </view>
+
+    <!-- 规划按钮 -->
+    <view class="plan-button-container">
+      <button class="btn btn-primary btn-block" bindtap="onPlanRoute" disabled="{{!startPoint.id || endPoints.length === 0}}">规划路线</button>
+    </view>
+  </scroll-view>
+
+  <!-- 推荐路线列表 -->
+  <view class="recommended-section" wx:if="{{recommendedRoutes.length > 0}}">
+    <view class="recommended-header">
+      <text class="recommended-title">推荐路线</text>
+    </view>
+    <scroll-view scroll-y="true" class="routes-list">
+      <view wx:for="{{recommendedRoutes}}" wx:key="id" class="route-card card card-hover" bindtap="onSelectRoute" data-id="{{item.id}}">
+        <view class="route-header">
+          <text class="route-name">{{item.name}}</text>
+          <view class="route-difficulty" wx:if="{{item.difficulty}}">
+            <text class="difficulty-badge difficulty-{{item.difficulty}}">{{item.difficultyText}}</text>
+          </view>
+        </view>
+        <view class="route-stats">
+          <view class="stat-item">
+            <text class="stat-label">距离</text>
+            <text class="stat-value">{{item.totalDistance}}m</text>
+          </view>
+          <view class="stat-item">
+            <text class="stat-label">时间</text>
+            <text class="stat-value">{{item.estimatedDuration}}分钟</text>
+          </view>
+          <view class="stat-item">
+            <text class="stat-label">评分</text>
+            <text class="stat-value">{{item.rating}}/5</text>
+          </view>
+        </view>
+        <text class="route-desc">{{item.description}}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-overlay" wx:if="{{loading}}">
+    <view class="spinner"></view>
+    <text>规划中...</text>
+  </view>
+</view>

@@ -1,0 +1,92 @@
+<!--map/map.wxml - 地图指引模块-->
+<view class="map-container">
+  <!-- 自定义导航栏 -->
+  <view class="custom-nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav-content">
+      <text class="nav-title">轮椅出行助手</text>
+      <view class="nav-icons">
+        <button class="icon-btn" bindtap="onSearch">
+          <image src="/images/icons/search.png" class="icon"></image>
+        </button>
+        <button class="icon-btn" bindtap="onSettings">
+          <image src="/images/icons/settings.png" class="icon"></image>
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 地图容器 -->
+  <map
+    id="map"
+    class="map"
+    longitude="{{centerLocation.longitude}}"
+    latitude="{{centerLocation.latitude}}"
+    scale="{{scale}}"
+    markers="{{markers}}"
+    bindmarkertap="onMarkerTap"
+    bindtap="onMapTap"
+    show-location="true"
+    enable-rotate="true"
+    enable-scroll="true"
+    enable-zoom="true"
+  ></map>
+
+  <!-- 设施类型筛选 -->
+  <view class="filter-bar">
+    <scroll-view scroll-x="true" class="filter-scroll">
+      <view
+        wx:for="{{facilityTypes}}"
+        wx:key="type"
+        class="filter-item {{activeFilterType === item.type ? 'active' : ''}}"
+        bindtap="onFilterChange"
+        data-type="{{item.type}}"
+      >
+        <image src="{{item.icon}}" class="filter-icon"></image>
+        <text>{{item.name}}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 浮动按钮 -->
+  <view class="fab-container">
+    <button class="fab" bindtap="onLocateUser">
+      <image src="/images/icons/location.png"></image>
+    </button>
+  </view>
+
+  <!-- 底部信息卡片 -->
+  <view class="bottom-sheet" wx:if="{{selectedFacility}}">
+    <view class="sheet-header">
+      <view class="drag-handle"></view>
+    </view>
+    <view class="sheet-content">
+      <view class="facility-card card-hover">
+        <view class="facility-header">
+          <text class="facility-name">{{selectedFacility.name}}</text>
+          <view class="facility-rating">
+            <view class="stars">
+              <text wx:for="{{[1,2,3,4,5]}}" wx:key="*this" class="star {{index < selectedFacility.rating ? 'filled' : 'empty'}}">★</text>
+            </view>
+            <text class="rating-text">{{selectedFacility.rating}}</text>
+          </view>
+        </view>
+        <text class="facility-type tag tag-primary">{{selectedFacility.type}}</text>
+        <text class="facility-desc">{{selectedFacility.description}}</text>
+        <view class="facility-status" wx:if="{{selectedFacility.status}}">
+          <text class="status-label">状态:</text>
+          <text class="status-text {{selectedFacility.status === 'normal' ? 'status-normal' : 'status-warning'}}">{{selectedFacility.statusText}}</text>
+        </view>
+        <view class="facility-actions">
+          <button class="btn btn-secondary btn-sm" bindtap="onNavigate">导航</button>
+          <button class="btn btn-primary btn-sm" bindtap="onViewDetail">查看详情</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <view class="spinner"></view>
+    <text>加载中...</text>
+  </view>
+</view>

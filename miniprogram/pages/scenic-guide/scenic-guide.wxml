@@ -1,0 +1,78 @@
+<!--scenic-guide/scenic-guide.wxml - 景区导览模块-->
+<view class="scenic-guide-container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input" bindtap="onSearch">
+      <image src="/images/icons/search.png" class="search-icon"></image>
+      <text class="search-placeholder">搜索景区...</text>
+    </view>
+    <button class="filter-btn" bindtap="onFilter">
+      <image src="/images/icons/filter.png"></image>
+    </button>
+  </view>
+
+  <!-- 推荐景区 -->
+  <scroll-view scroll-y="true" class="content">
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">为您推荐</text>
+      </view>
+      <view wx:for="{{recommendedScenics}}" wx:key="id" class="scenic-card card card-hover" bindtap="onViewScenic" data-id="{{item.id}}">
+        <view class="scenic-image">
+          <image src="{{item.coverImage}}" mode="aspectFill"></image>
+          <view class="scenic-rating">
+            <text class="rating-value">{{item.wheelchairRating}}</text>
+            <text class="rating-label">轮椅友好度</text>
+          </view>
+        </view>
+        <view class="scenic-info">
+          <view class="scenic-header">
+            <text class="scenic-name">{{item.name}}</text>
+            <view class="scenic-distance">距您 {{item.distance}}km</view>
+          </view>
+          <text class="scenic-desc">{{item.description}}</text>
+          <view class="scenic-tags">
+            <text wx:for="{{item.tags}}" wx:key="*this" class="tag tag-primary">{{item}}</text>
+          </view>
+          <view class="scenic-stats">
+            <view class="stat">
+              <text class="stat-label">评价</text>
+              <text class="stat-value">{{item.visitorCount}}</text>
+            </view>
+            <view class="stat">
+              <text class="stat-label">设施</text>
+              <text class="stat-value">{{item.facilitiesCount}}</text>
+            </view>
+            <view class="stat">
+              <text class="stat-label">路线</text>
+              <text class="stat-value">{{item.routesCount}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 热门景区 -->
+    <view class="section" wx:if="{{popularScenics.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">热门景区</text>
+      </view>
+      <view wx:for="{{popularScenics}}" wx:key="id" class="scenic-card-compact" bindtap="onViewScenic" data-id="{{item.id}}">
+        <image src="{{item.coverImage}}" class="scenic-thumb" mode="aspectFill"></image>
+        <view class="scenic-brief">
+          <text class="scenic-name">{{item.name}}</text>
+          <view class="scenic-meta">
+            <text class="meta-item">⭐ {{item.rating}}</text>
+            <text class="meta-item">♿ {{item.wheelchairRating}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <view class="spinner"></view>
+    <text>加载中...</text>
+  </view>
+</view>
